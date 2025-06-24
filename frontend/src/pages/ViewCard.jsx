@@ -132,7 +132,136 @@ function ViewCard() {
     
   return (
     <div className='w-[100%] h-[100vh] bg-[white] flex items-center justify-center gap-[10px] flex-col overflow-auto  relative'>
-             <div className='w-[50px] h-[50px] bg-[red] cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center' onClick={()=>navigate("/")}><FaArrowLeftLong className='w-[25px] h-[25px] text-[white]' /></div>
+        <button 
+        className="fixed top-6 left-5 z-10 w-12 h-12 bg-red-500 hover:bg-red-600 active:bg-red-700 
+                    rounded-full flex items-center justify-center shadow-lg transition-all duration-200 
+                    hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-300"
+        onClick={() => navigate("/")}
+        aria-label="Go back to home"
+        >
+        <FaArrowLeftLong className="w-6 h-6 text-white" />
+        </button>
+
+        {/* Main Content Container */}
+        <div className="min-h-screen bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
+            
+            {/* Location Header */}
+            <header className="mb-8 lg:mb-12">
+            <div className="max-w-4xl">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
+                In {cardDetails.landMark.toUpperCase()}, {cardDetails.city.toUpperCase()}
+                </h1>
+            </div>
+            </header>
+
+            {/* Image Gallery */}
+            <section className="mb-8 lg:mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[400px] lg:h-[500px] rounded-2xl overflow-hidden">
+                
+                {/* Main Image */}
+                <div className="lg:col-span-2 relative group">
+                <img 
+                    src={cardDetails.image1} 
+                    alt="Property main view"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                </div>
+                
+                {/* Secondary Images */}
+                <div className="hidden lg:flex flex-col gap-4">
+                <div className="flex-1 relative group overflow-hidden rounded-lg">
+                    <img 
+                    src={cardDetails.image2} 
+                    alt="Property view 2"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                </div>
+                <div className="flex-1 relative group overflow-hidden rounded-lg">
+                    <img 
+                    src={cardDetails.image3} 
+                    alt="Property view 3"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                </div>
+                </div>
+                
+                {/* Mobile Secondary Images */}
+                <div className="flex lg:hidden gap-2 h-32">
+                <div className="flex-1 relative group overflow-hidden rounded-lg">
+                    <img 
+                    src={cardDetails.image2} 
+                    alt="Property view 2"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                </div>
+                <div className="flex-1 relative group overflow-hidden rounded-lg">
+                    <img 
+                    src={cardDetails.image3} 
+                    alt="Property view 3"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                </div>
+                </div>
+            </div>
+            </section>
+
+            {/* Property Information */}
+            <div className="max-w-4xl space-y-6">
+            
+            {/* Title */}
+            <div>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900 leading-relaxed">
+                {`${cardDetails.title.toUpperCase()} ${cardDetails.category.toUpperCase()}, ${cardDetails.landMark.toUpperCase()}`}
+                </h2>
+            </div>
+
+            {/* Description */}
+            <div>
+                <p className="text-lg sm:text-xl text-gray-700 leading-relaxed font-light">
+                {cardDetails.description}
+                </p>
+            </div>
+
+            {/* Price */}
+            <div>
+                <p className="text-2xl sm:text-3xl font-bold text-gray-900">
+                ₹{cardDetails.rent}<span className="text-lg font-normal text-gray-600">/day</span>
+                </p>
+            </div>
+
+            {/* Action Button */}
+            <div className="pt-6">
+                {cardDetails.host === userData._id ? (
+                <button 
+                    className="inline-flex items-center justify-center px-8 py-4 bg-red-500 
+                            hover:bg-red-600 active:bg-red-700 text-white font-semibold text-lg 
+                            rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 
+                            focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2
+                            min-w-[200px] disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={() => setUpdatePopUp(prev => !prev)}
+                >
+                    Edit Listing
+                </button>
+                ) : (
+                <button 
+                    className="inline-flex items-center justify-center px-8 py-4 bg-red-500 
+                            hover:bg-red-600 active:bg-red-700 text-white font-semibold text-lg 
+                            rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 
+                            focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2
+                            min-w-[200px] disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={() => setBookingPopUp(prev => !prev)}
+                >
+                    Reserve Now
+                </button>
+                )}
+            </div>
+            </div>
+        </div>
+        </div>{/* <div className='w-[50px] h-[50px] bg-[red] cursor-pointer absolute top-[5%] left-[20px] rounded-[50%] flex items-center justify-center' onClick={()=>navigate("/")}><FaArrowLeftLong className='w-[25px] h-[25px] text-[white]' /></div>
     
              <div className='w-[95%]  flex items-start justify-start text-[25px] md:w-[80%] mb-[10px]'>
                 <h1 className='text-[20px]  text-[#272727] md:text-[30px] text-ellipsis text-nowrap overflow-hidden px-[70px] md:px-[0px]'>
@@ -164,7 +293,7 @@ function ViewCard() {
              {cardDetails.host != userData._id && <button className='px-[30px] py-[10px] bg-[red] text-[white] text-[18px] md:px-[100px] rounded-lg   text-nowrap' onClick={()=>setBookingPopUp(prev => !prev)}> 
                 Reserve
              </button>}
-             </div>
+             </div> */}
 
              {/* Update Listing Page */}
 
